@@ -26,6 +26,11 @@ source ./venv/bin/activate (Mac) or venv\Scripts\activate (Windows)
 pip install --upgrade google-api-python-client --upgrade oauth2client pandas
 ```
 
+For Organize Keys
+```bash
+pip install python-decouple
+```
+
 ### 3. check your google analytics VIEW ID
 ### 4. create the service account in GCP for the Google Analytics API
 
