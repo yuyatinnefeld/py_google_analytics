@@ -16,16 +16,14 @@
 ## Setup
 ### 0. activate venv
 ```bash
-python -m venv env
-source ./env/bin/activate (Mac) or env\Scripts\activate (Windows)
+python -m venv venv
+source ./venv/bin/activate (Mac) or venv\Scripts\activate (Windows)
 ```
 
 ### 1. install the package
 
 ```bash
-pip install --upgrade google-api-python-client
-pip install --upgrade oauth2client
-pip pandas
+pip install --upgrade google-api-python-client --upgrade oauth2client pandas
 ```
 
 ### 3. check your google analytics VIEW ID
