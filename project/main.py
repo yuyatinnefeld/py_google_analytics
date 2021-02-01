@@ -9,6 +9,9 @@ metrics = set_metrics('ga:pageviews','ga:avgSessionDuration')
 dimensions = set_dimensions('ga:deviceCategory')
 
 analytics = setup_analytics()
+
+print(analytics)
+
 response1 = get_response(analytics, VIEW_ID, data_range, metrics, dimensions)
 df = ga_response_dataframe(response1)
 
