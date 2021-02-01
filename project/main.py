@@ -1,3 +1,15 @@
+#!/usr/bin/env python3
+# -*- coding: utf-8 -*-
+
+""" 
+---------------------------------------------
+# Google Analytics API Extractor
+# (C) 2021 Yuya Tinnefeld, Düsseldorf, Germany
+# email: yuyatinnefeld@gmail.com
+---------------------------------------------
+"""
+
+
 from decouple import config
 from oauth import setup_analytics
 from google_analytics import (

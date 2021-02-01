@@ -1,3 +1,15 @@
+#!/usr/bin/env python3
+# -*- coding: utf-8 -*-
+
+""" 
+---------------------------------------------
+# Google Analytics API Extractor
+# (C) 2021 Yuya Tinnefeld, Düsseldorf, Germany
+# email: yuyatinnefeld@gmail.com
+---------------------------------------------
+"""
+
+
 from decouple import config
 import pandas as pd
 from oauth import setup_analytics
@@ -28,28 +40,6 @@ def get_response(analytics, view_id, data_range, metrics, dimensions):
             "dimensions": dimensions
         }]}).execute()
     return response
-
-
-# response = analytics.reports().batchGet(body={
-#     'reportRequests': [{
-#         'viewId': VIEW_ID,
-#         'dateRanges': [{'startDate': 'XXXX-XX-XX', 'endDate': 'XXXX-XX-XX'}],
-#         'metrics': [
-#             {"expression": "ga:bounceRate"},
-#             {"expression": "ga:sessionDuration"}
-#         ], "dimensions": [
-#             {"name": "ga:browser"}
-#         ]
-#     }]}).execute()
-
-# df = ga_response_dataframe(response)
-
-# # Filter all entries with bounce rate of 100 and sessionDuration of 0
-# df = df[(df['ga:bounceRate'] < 100) & (df['ga:sessionDuration'] > 0.0)]
-# df.set_index('ga:browser', inplace=True)
-# df.head()
-
-
 
 
 def ga_response_dataframe(response):
