@@ -22,10 +22,6 @@ dimensions = set_dimensions('ga:deviceCategory')
 
 analytics = setup_analytics()
 response1 = get_response(analytics, VIEW_ID, data_range, metrics, dimensions)
-
-print(analytics)
-
-# df = ga_response_dataframe(response1)
-
-# print(df.head())
+df = ga_response_dataframe(response1)
+print(df.head())
 
