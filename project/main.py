@@ -12,8 +12,8 @@ analytics = setup_analytics()
 
 print(analytics)
 
-# response1 = get_response(analytics, VIEW_ID, data_range, metrics, dimensions)
-# df = ga_response_dataframe(response1)
+response1 = get_response(analytics, VIEW_ID, data_range, metrics, dimensions)
+df = ga_response_dataframe(response1)
 
-# print(df.head())
+print(df.head())
 
