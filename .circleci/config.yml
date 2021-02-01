@@ -22,4 +22,4 @@ jobs:
           name: run tests
           command: |
             source ./venv/bin/activate
-            python test/test_calc.py
+            python project/test_calc.py
