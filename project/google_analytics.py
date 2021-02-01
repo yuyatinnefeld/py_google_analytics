@@ -2,20 +2,54 @@ from decouple import config
 import pandas as pd
 from oauth import setup_analytics
 
+data_range = None
 
-def get_response(analytics, view_id):
+def set_daterange(start, end):
+    data_range = [{'startDate': start, 'endDate': end}]
+    return data_range
+
+def set_metrics(metrics1, metrics2):
+    metrics = [{"expression": metrics1},{"expression": metrics2},
+    ]
+    return metrics
+
+def set_dimensions(dimension1):
+    dimensions =[
+        {"name": dimension1},
+    ]
+    return dimensions
+
+def get_response(analytics, view_id, data_range, metrics, dimensions):
     response = analytics.reports().batchGet(body={
         'reportRequests': [{
             'viewId': view_id,
-            'dateRanges': [{'startDate': '2020-01-01', 'endDate': '2020-02-01'}],
-            'metrics': [
-                {"expression": "ga:pageviews"},
-                {"expression": "ga:avgSessionDuration"}
-            ], "dimensions": [
-                {"name": "ga:deviceCategory"}
-            ]
+            'dateRanges': data_range,
+            'metrics': metrics, 
+            "dimensions": dimensions
         }]}).execute()
     return response
+
+
+# response = analytics.reports().batchGet(body={
+#     'reportRequests': [{
+#         'viewId': VIEW_ID,
+#         'dateRanges': [{'startDate': 'XXXX-XX-XX', 'endDate': 'XXXX-XX-XX'}],
+#         'metrics': [
+#             {"expression": "ga:bounceRate"},
+#             {"expression": "ga:sessionDuration"}
+#         ], "dimensions": [
+#             {"name": "ga:browser"}
+#         ]
+#     }]}).execute()
+
+# df = ga_response_dataframe(response)
+
+# # Filter all entries with bounce rate of 100 and sessionDuration of 0
+# df = df[(df['ga:bounceRate'] < 100) & (df['ga:sessionDuration'] > 0.0)]
+# df.set_index('ga:browser', inplace=True)
+# df.head()
+
+
 
 
 def ga_response_dataframe(response):
