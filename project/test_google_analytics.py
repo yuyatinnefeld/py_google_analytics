@@ -11,7 +11,9 @@
 
 
 import pytest
-from google_analytics import set_daterange, set_metrics
+from oauth import setup_analytics
+from google_analytics import (
+    set_daterange, set_metrics, set_dimensions, ga_response_dataframe, get_response)
 
 
 class TestGoogleAnalytics:
@@ -20,10 +22,16 @@ class TestGoogleAnalytics:
         assert [{'startDate': '2020-01-01', 
                 'endDate': '2020-02-01'}] == set_daterange('2020-01-01', '2020-02-01')
 
-
     def test_set_metrics(self):
-        assert [{"expression": 'ga:pageviews'},
-                {"expression": 'ga:avgSessionDuration'}] == set_metrics('ga:pageviews','ga:avgSessionDuration')
+        assert [{'expression': 'ga:zzzz'},
+                {'expression': 'ga:yyyy'}] == set_metrics('ga:zzzz','ga:yyyy')
+
+    def test_set_dimensions(self):
+        assert [{'name': 'ga:xxxx'}] == set_dimensions('ga:xxxx')
+
+
+    def test_setup_analytics(self):
+        assert str(setup_analytics()).__contains__('googleapiclient')
 
 
 
