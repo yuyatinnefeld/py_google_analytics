@@ -1,14 +1,12 @@
 <h1 align="center">Google Analytics API Extractor</h1> <br>
-<h2 align="center">🚀 🐍 🚀 🐍 🚀 🐍 🚀 🐍 🚀 🐍 🚀 🐍 </h2> <br>
-
-## Table of Contents
+<h2>🐍 Table of Contents 🐍</h2>
 
 - [About](#about)
 - [Benefit](#benefit)
 - [Info](#info)
 - [Setup](#setup)
 
-## About
+<h2>⚡ About ⚡ </h2>
 The Google Analytics Reporting API v4 is the most advanced programmatic method to access report data in Google Analytics. With the Google Analytics Reporting API, you can:
 
 - Build custom dashboards to display Google Analytics data.
