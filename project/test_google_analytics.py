@@ -9,12 +9,9 @@
 ---------------------------------------------
 """
 
-
 import pytest
-from oauth import setup_analytics
-from google_analytics import (
-    set_daterange, set_metrics, set_dimensions, ga_response_dataframe, get_response)
-
+from google_analytics import get_service
+from data_setup import set_daterange, set_metrics, set_dimensions
 
 class TestGoogleAnalytics:
 
@@ -28,12 +25,6 @@ class TestGoogleAnalytics:
 
     def test_set_dimensions(self):
         assert [{'name': 'ga:xxxx'}] == set_dimensions('ga:xxxx')
-
-
-    def test_setup_analytics(self):
-        assert str(setup_analytics()).__contains__('googleapiclient')
-
-
 
 
 if __name__ == '__main__':

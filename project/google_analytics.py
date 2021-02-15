@@ -3,36 +3,28 @@
 
 """ 
 ---------------------------------------------
-# Google Analytics API Extractor
+# PYTHON TEMPLATE
 # (C) 2021 Yuya Tinnefeld, Düsseldorf, Germany
 # email: yuyatinnefeld@gmail.com
 ---------------------------------------------
 """
 
+from apiclient.discovery import build
+from oauth2client.service_account import ServiceAccountCredentials
 
-from decouple import config
 import pandas as pd
-from oauth import setup_analytics
 
-data_range = None
+def get_service(api_name, api_version, scopes, key_file_location):
 
-def set_daterange(start, end):
-    data_range = [{'startDate': start, 'endDate': end}]
-    return data_range
+    credentials = ServiceAccountCredentials.from_json_keyfile_name(
+            key_file_location, scopes=scopes)
 
-def set_metrics(metrics1, metrics2):
-    metrics = [{"expression": metrics1},{"expression": metrics2},
-    ]
-    return metrics
+    service = build(api_name, api_version, credentials=credentials)
 
-def set_dimensions(dimension1):
-    dimensions =[
-        {"name": dimension1},
-    ]
-    return dimensions
+    return service
 
-def get_response(analytics, view_id, data_range, metrics, dimensions):
-    response = analytics.reports().batchGet(body={
+def get_response(service, view_id, data_range, metrics, dimensions):
+    response = service.reports().batchGet(body={
         'reportRequests': [{
             'viewId': view_id,
             'dateRanges': data_range,
@@ -42,7 +34,15 @@ def get_response(analytics, view_id, data_range, metrics, dimensions):
     return response
 
 
-def ga_response_dataframe(response):
+def get_response_realtime(service):
+    response = service.data().realtime().get(
+        ids='ga:170783167',
+        metrics='rt:activeUsers',
+        dimensions='rt:medium'
+        ).execute()
+    return response
+
+def get_results_ga_core_reporting(response):
     row_list = []
     # Get each collected report
     for report in response.get('reports', []):
@@ -73,3 +73,23 @@ def ga_response_dataframe(response):
 
             row_list.append(row_dict)
     return pd.DataFrame(row_list)
+
+def get_results_ga_real_time_report(response):
+    columns = response.get('columnHeaders',{})
+    dimension_header = columns[0].get('name', [])
+    metric_header = columns[1].get('name', [])
+
+    col = [dimension_header, metric_header]
+    df = pd.DataFrame(columns=col)
+    rows = response.get('rows', [])
+
+    for row in rows:
+      df = df.append({dimension_header: row[0] , metric_header: int(row[1])}, ignore_index=True)  
+    return df
+
+
+def print_results(results):
+    print ('** GA Report **')
+    print(results)
+
+
