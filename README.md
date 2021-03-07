@@ -50,15 +50,18 @@ mkdir conf
 mv xxxxx-xxxxx.json client_secrets.json
 ```
 
-### 5. create .env and put there private key and sensitive information
+### 5. create .env and save there private keys and secret information
 
 ```bash
 touch .env
 ```
 
 ### 6. setup the .env
+```bash
 KEY_FILE_LOCATION='PATH_OF_YOUR_CLIENT_SECRETS.JSON'
 VIEW_ID='YOUR_GA_ID'
+
+```
 
 ### 7. setup GA analyse info
 
